@@ -23,13 +23,31 @@ declare -a valid_arr=(
 "200607092384"
 )
 
+declare -a invalid_arr=(
+"202508242382"
+"202510022384"
+"202503312380"
+"202509012385"
+"202512232387"
+"202504182390"
+"189506299819"
+"189002099812"
+"189103179800"
+"190006129805"
+"190704019802"
+"190108219818"
+"200306062382"
+"200802122391"
+"000000000000"
+)
+
 function assertTrue() {
     echo -n "Validating ${1} "
     validate "${1}" && echo OK || echo FAIL
 }
 
 function assertFalse() {
-    echo -n "Validating invalid personnummer ${1} "
+    echo -n "Validating invalid ${1} "
     validate $1 && echo FAIL || echo OK
 }
 
@@ -40,4 +58,9 @@ function validate() {
 for p in "${valid_arr[@]}"
     do
         assertTrue $p
+done
+
+for p in "${invalid_arr[@]}"
+    do
+        assertFalse $p
 done
