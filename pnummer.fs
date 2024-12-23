@@ -28,14 +28,16 @@ drop sum @
 
 
 : main
+    \ TODO validate argc
     next-arg 2dup 
-    \ type cr
     iter luhn
     >r last-digit r>
-    =
+    = \ compare calculated digit to actual
+    .s \ debug
     (bye)
-    .s
+;
 
+main
 
 \ (bye) ( n -- ) - exit code to OS
 \ argc ( -- addr ) c@ 
