@@ -2,7 +2,10 @@
 
 9 constant CHECK_DIGIT_POS
 
-: luhn ( sum -- n ) 10 mod negate 10 + ; \ 10 - (sum mod 10)
+: ten-mod 10 mod ;
+
+\ TODO better name
+: luhn ( sum -- n ) ten-mod negate 10 + ten-mod ; \ (10 - (sum mod 10)) mod 10
 
 : ascii2digit ( addr - n ) c@ 0x30 - ;
 
@@ -33,11 +36,12 @@ drop sum @
     iter luhn
     >r last-digit r>
     = \ compare calculated digit to actual
-    .s \ debug
+    invert
+\    .s \ debug
     (bye)
 ;
 
-main
+ main
 
 \ (bye) ( n -- ) - exit code to OS
 \ argc ( -- addr ) c@ 
