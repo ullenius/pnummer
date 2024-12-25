@@ -1,5 +1,5 @@
 \ date words
-\ s" common.fs" included
+\  s" common.fs" included
 
 create months 
 0 c, \ filler
@@ -9,9 +9,6 @@ create months
 31 c, 30 c, 31 c, \ october, november, december
 
 : month ( month -- n ) months + c@ ;
-
-: parseDate ( addr u - year month day ) \ YYYYmmDD
-;
 
 : parseYear ( addr -- year )
     dup 0 + ascii2digit 1000 * swap
@@ -30,7 +27,18 @@ create months
 
 : parseDay ( addr - days ) parseMonth ;
 
-: default ( -- ) ; \ noop
+: parseDate ( addr u - year month day ) \ YYYYmmDD
+    dup parseYear
+    swap
+    4 + dup parseMonth
+    swap
+    2 + parseDay
+;
+
+: valid-month ( n -- f ) dup 0> swap 13 < and ;
+
+\ TODO check leap year
+: valid-monthday ( month day -- f ) swap month 1 + < ;
 
 : valid-century ( addr -- f )
     parseYear

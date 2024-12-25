@@ -39,6 +39,11 @@ declare -a invalid_arr=(
 "200306062382"
 "200802122391"
 "000000000000"
+"199502291116" # invalid date, not leap-year
+"199313241235" # invalid month number
+"199300121234" # month zeroed
+"199312001234" # days zeroed
+"199301321239" # invalid day number
 )
 
 function assertTrue() {
