@@ -1,5 +1,5 @@
 \ date words
-s" common.fs" included
+\ s" common.fs" included
 
 create months 
 0 c, \ filler

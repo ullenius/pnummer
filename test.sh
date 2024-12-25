@@ -52,7 +52,7 @@ function assertFalse() {
 }
 
 function validate() {
-    gforth main.fs "${1:2}" -e bye # remove 2 first chars from year
+    gforth main.fs "${1}" -e bye # remove 2 first chars from year
 }
 
 for p in "${valid_arr[@]}"
