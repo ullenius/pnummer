@@ -25,3 +25,4 @@ All test data is from Skatteverket (testpersonnummer).
 ## BUGS
 * Does not validate century (valid prefixes are 18, 19 and 20)
 * All zeroes is valid
+* Does not validate dates

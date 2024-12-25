@@ -31,14 +31,3 @@ drop sum @
 
 : last-digit ( addr u -- n ) drop CHECK_DIGIT_POS + ascii2digit ;
 
-: main
-    \ TODO validate argc
-    next-arg 2dup 
-    iter luhn
-    >r last-digit r>
-    = \ compare calculated digit to actual
-    invert
-    (bye)
-;
-
- main
