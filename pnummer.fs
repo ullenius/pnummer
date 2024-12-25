@@ -1,13 +1,13 @@
 \ luhn-algorithm
 
+s" common.fs" included
+
 9 constant CHECK_DIGIT_POS
 
 : 10mod 10 mod ;
 
 \ TODO better name
 : luhn ( sum -- n ) 10mod negate 10 + 10mod ; \ (10 - (sum mod 10)) mod 10
-
-: ascii2digit ( addr - n ) c@ 0x30 - ;
 
 : double ( n -- 2n ) 2 * ;
 
