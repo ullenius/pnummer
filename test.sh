@@ -47,7 +47,7 @@ function assertTrue() {
 }
 
 function assertFalse() {
-    echo -n "Validating invalid ${1} "
+    echo -n "Validating (invalidi) ${1} "
     validate $1 && echo FAIL || echo OK
 }
 
