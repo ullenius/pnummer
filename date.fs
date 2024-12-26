@@ -1,5 +1,6 @@
 \ date words
-\  s" common.fs" included
+  s" common.fs" included
+s" leap.fs" included
 
 create months 
 0 c, \ filler
@@ -8,7 +9,17 @@ create months
 31 c, 31 c, 30 c, \ july, august, september
 31 c, 30 c, 31 c, \ october, november, december
 
-: month ( month -- n ) months + c@ ;
+: february 2 = ;
+
+: month ( year month -- n )
+    dup >r \ save month
+    months + c@
+    r> february if
+        swap leap - \ 28 - (-1) == 29
+    else
+        swap drop \ drop unused year
+    then
+;
 
 : parseYear ( addr -- year )
     dup 0 + ascii2digit 1000 * swap
@@ -37,8 +48,10 @@ create months
 
 : valid-month ( n -- f ) dup 0> swap 13 < and ;
 
-\ TODO check leap year
-: valid-monthday ( month day -- f ) swap month 1 + < ;
+: valid-monthday ( year month day -- f )
+    swap month \ get number of days for month
+    0 swap .s within \ day 0 days-per-month
+;
 
 : valid-century ( addr -- f )
     parseYear
@@ -53,16 +66,20 @@ create months
 
 : assertEquals ( actual, expected -- ) = 0= if abort then ;
 
-1 month 31 assertEquals
-2 month 28 assertEquals
-3 month 31 assertEquals
-4 month 30 assertEquals
-5 month 31 assertEquals
-6 month 30 assertEquals
-7 month 31 assertEquals
-8 month 31 assertEquals
-9 month 30 assertEquals
-10 month 31 assertEquals
-11 month 30 assertEquals
-12 month 31 assertEquals
+2000 constant LEAP_YEAR
+LEAP_YEAR 1 - constant NON_LEAP_YEAR
+
+LEAP_YEAR 1 month 31 assertEquals
+NON_LEAP_YEAR 2 month 28 assertEquals
+LEAP_YEAR 2 month 29 assertEquals \ leap year
+LEAP_YEAR 3 month 31 assertEquals
+LEAP_YEAR 4 month 30 assertEquals
+LEAP_YEAR 5 month 31 assertEquals
+LEAP_YEAR 6 month 30 assertEquals
+LEAP_YEAR 7 month 31 assertEquals
+LEAP_YEAR 8 month 31 assertEquals
+LEAP_YEAR 9 month 30 assertEquals
+LEAP_YEAR 10 month 31 assertEquals
+LEAP_YEAR 11 month 30 assertEquals
+LEAP_YEAR 12 month 31 assertEquals
 
