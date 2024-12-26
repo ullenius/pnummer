@@ -49,15 +49,13 @@ create months
 : valid-month ( n -- f ) dup 0> swap 13 < and ;
 
 : valid-monthday ( year month day -- f )
-    >r \ push day
+    rot rot \ day year month
     dup valid-month if
         month \ get number of days for month
         1 + \ add 1 for within upper-bound to work
-        r>
-        swap \ days max-days-for month
-        0 swap within \ day 0 days-per-month
+        1 swap within \ day 1 (lower-bound) days-in-month (upper bound)
     else
-        r> 2drop \ drop day
+        drop \ drop day
         false
     then
 ;
@@ -78,6 +76,7 @@ create months
 2000 constant LEAP_YEAR
 LEAP_YEAR 1 - constant NON_LEAP_YEAR
 
+\ tests
 LEAP_YEAR 1 month 31 assertEquals
 NON_LEAP_YEAR 2 month 28 assertEquals
 LEAP_YEAR 2 month 29 assertEquals \ leap year
@@ -93,4 +92,7 @@ LEAP_YEAR 11 month 30 assertEquals
 LEAP_YEAR 12 month 31 assertEquals
 
 LEAP_YEAR 2 29 valid-monthday true assertEquals
-NON_LEAP_YEAR 29 valid-monthday false assertEquals
+NON_LEAP_YEAR 2 29 valid-monthday false assertEquals
+
+NON_LEAP_YEAR 12 0 valid-monthday false assertEquals \ zeroed day
+NON_LEAP_YEAR 0 31 valid-monthday false assertEquals \ zeroed month
