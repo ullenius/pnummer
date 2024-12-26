@@ -14,10 +14,15 @@ s" date.fs" included
 
 : remove-century-digits 2 substring ;
 
-: main
+: main \ argv: YYYYmmDDXXXC
     \ TODO validate argc
     next-arg 2dup
     drop valid-century
+    >r \ store result
+    2dup drop 
+    parseDate
+    valid-monthday
+    r> and \ and results
     if
         remove-century-digits
         2dup
