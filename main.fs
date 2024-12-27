@@ -34,7 +34,10 @@ s" date.fs" included
 : remove-century-digits 2 substring ;
 
 : main
-    \ TODO validate argc
+    argc c@ 2 < if
+        ." usage: gforth main.fs [personnummer]..." cr
+        -1 (bye)
+    then
     next-arg 2dup
     drop valid-century
     >r \ store result
