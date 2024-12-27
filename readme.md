@@ -1,16 +1,22 @@
 # personnummer-forth
 
-Validerar svenska personnummer.
+personnummer-forth is a Forth stand-alone command line app for validating
+Swedish *personnummer* (personal identity numbers).
 
-Usage: gforth pnummer.fs PERSONNUMMER -e bye
+Usage: `gforth main.fs [PERSONNUMMER]... -e bye`
 
-## Format
-Format på personnummer: ÅÅMMDDXXXC
+## Features
+* Verifies the checksum digit (luhn algorithm).
+* Date validation
+* Century validation
 
-* ÅÅ = År (till exempel 00)
-* MM = Måndag 01-12
-* XXX - födelsenummer
-* C - kontrollsiffra (luhn-algoritm)
+## Input format
+Format: `ccYYmmDDXXXC`, for example: `202511142388`
+
+* cc - Century (18-20). Not used by checksum algorithm.
+* YY - Year 00-99
+* MM - Month 1-12
+* C - Checksum digit
 
 # Requirements
 * gforth 0.7.3 or higher
@@ -20,9 +26,13 @@ Format på personnummer: ÅÅMMDDXXXC
 Run unit tests:
 `./test.sh`
 
-All test data is from Skatteverket (testpersonnummer).
+All test data is from Skatteverket (*testpersonnummer*).
 
-## BUGS
-* Does not validate century (valid prefixes are 18, 19 and 20)
-* All zeroes is valid
-* Does not validate dates
+# Licence
+GPL-3 only
+
+# References
+* [Personal identity
+number](https://en.wikipedia.org/wiki/Personal_identity_number_(Sweden))
+* [Skatteverket
+testpersonnummer](https://www7.skatteverket.se/portal/apier-och-oppna-data/utvecklarportalen/oppetdata/Test%C2%AD%C2%ADpersonnummer)
