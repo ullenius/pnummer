@@ -6,7 +6,7 @@ Swedish *personnummer* (personal identity numbers).
 Usage: `gforth main.fs [PERSONNUMMER]... -e bye`
 
 ## Features
-* Verifies the checksum digit (luhn algorithm).
+* Verifies the checksum digit (Luhn algorithm).
 * Date validation
 * Century validation
 
@@ -15,7 +15,7 @@ Format: `ccYYmmDDXXXC`, for example: `202511142388`
 
 * cc - Century (18-20). Not used by checksum algorithm.
 * YY - Year 00-99
-* MM - Month 1-12
+* MM - Month 01-12
 * C - Checksum digit
 
 # Requirements
