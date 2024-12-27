@@ -1,6 +1,8 @@
 \ date words
-  s" common.fs" included
+\  s" common.fs" included
 s" leap.fs" included
+
+12 1 + constant UPPER_BOUND_MONTH
 
 create months 
 0 c, \ filler
@@ -46,7 +48,7 @@ create months
     2 + parseDay
 ;
 
-: valid-month ( n -- f ) dup 0> swap 13 < and ;
+: valid-month ( n -- f ) dup 0> swap UPPER_BOUND_MONTH < and ;
 
 : valid-monthday ( year month day -- f )
     rot rot \ day year month
